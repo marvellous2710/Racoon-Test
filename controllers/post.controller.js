@@ -45,4 +45,18 @@ module.exports.updatePost = (req, res) => {
   );
 };
 
-module.exports.deletePost = (req, res) => {};
+module.exports.deletePost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  postModel.findByIdAndRemove(req.params.id, (err, docs) => {
+    if (!err) res.send;
+    else console.log("delete error :" + err);
+  });
+};
+
+// exports.deletePost = (req, res, next) => {
+//     UserModel.deleteOne({ _id: req.params.id })
+//       .then((user) => res.status(200).json(user))
+//       .catch((error) => res.status(404).json({ error }));
+//   };
